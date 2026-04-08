@@ -10,22 +10,22 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
-public class ClientSimulator {
+public class Client {
 
     // Random object for generating message data
     private static final Random RANDOM = new Random();
 
     public static void main(String[] args) throws Exception {
 
-        int numberOfClients = 100;   // Number of simulated clients
-        int messagesPerClient = 1;  // Number of messages each client sends over a single connection
+        int numberOfClients = 1000;   // Number of simulated clients
 
         // Executor that creates a new virtual thread for each client
         ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
         // Launch all clients concurrently
         for (int i = 0; i < numberOfClients; i++) {
-            executor.submit(() -> runClient(messagesPerClient));
+            executor.submit(() -> runClient());
+            //Thread.sleep(1);
         }
 
         // Stop accepting new tasks and wait for all clients to finish
@@ -35,8 +35,8 @@ public class ClientSimulator {
 
 
     // Simulates a single client
-    // Each virtual-thread client opens one TCP connection, sends many messages over it and reads responses
-    private static void runClient(int count) {
+    // Each virtual-thread client opens one TCP connection, sends a message over it and reads a response
+    private static void runClient() {
 
         // try-with-resources ensures the socket is closed automatically
         try (Socket socket = new Socket("localhost", 9000);
@@ -44,19 +44,17 @@ public class ClientSimulator {
              BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            // Send multiple messages over the same connection
-            for (int i = 0; i < count; i++) {
-                String message = buildMessage();
+            String message = buildMessage();
 
-                // Send request to server
-                out.write(message);
-                out.write("\n");
-                out.flush();
+            // Send request to server
+            out.write(message);
+            out.write("\n");
+            out.flush();
 
-                // Read server response
-                String response = in.readLine();
-                System.out.println("Server reply: " + response);
-            }
+            // Read server response
+            String response = in.readLine();
+            System.out.println("Server reply: " + response);
+
         } catch (Exception e) {
             System.err.println("Connection error: " + e.getMessage());
         }
@@ -69,8 +67,9 @@ public class ClientSimulator {
             // Valid account numbers
             "ACC001", "ACC002", "ACC003", "ACC004", "ACC005",
             "ACC006", "ACC007", "ACC008", "ACC009", "ACC010",
-            // Invalid account numbers to check error validation
-            "ACC011", "ACC012"};
+            // Invalid account number to check error validation
+            // "ACC011"
+        };
 
         // Generate a unique identifier so each transaction can be tracked
         String requestId = UUID.randomUUID().toString();

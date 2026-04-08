@@ -14,7 +14,7 @@ public class Server {
         AccountService accountService = new AccountService();
 
         // try-with-resources ensures both the ServerSocket and ExecutorService are closed automatically
-        try (ServerSocket serverSocket = new ServerSocket(PORT,1024);
+        try (ServerSocket serverSocket = new ServerSocket(PORT,4096);
              //  Executor that creates a new virtual thread for each submitted task
              var executor = Executors.newVirtualThreadPerTaskExecutor();) {
 
