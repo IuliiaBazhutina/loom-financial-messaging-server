@@ -25,7 +25,7 @@ public class Client {
         // Launch all clients concurrently
         for (int i = 0; i < numberOfClients; i++) {
             executor.submit(() -> runClient());
-            //Thread.sleep(1);
+            Thread.sleep(1);
         }
 
         // Stop accepting new tasks and wait for all clients to finish

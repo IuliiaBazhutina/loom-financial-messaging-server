@@ -31,7 +31,7 @@ Technologies used:
 
 - Creates one virtual thread per client using newVirtualThreadPerTaskExecutor()
 
-- Communicates using a line‑based text protocol (one command per line, \n terminated)
+- Communicates using a line‑based text protocol
 
 - Reads client messages via BufferedReader.readLine() and writes responses with BufferedWriter
 
@@ -43,7 +43,7 @@ Technologies used:
 
 ### Client Module
 
-- Simulates multiple concurrent clients, every client can send many messages 
+- Simulates multiple concurrent clients
 
 - Opens one TCP connection for each simulated client to the server on port 9000
 
