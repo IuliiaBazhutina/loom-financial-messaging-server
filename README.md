@@ -49,7 +49,7 @@ Technologies used:
 
 - Simulates multiple concurrent clients
 
-- Opens one TCP connection for each simulated client to the server on port 9000
+- Opens one TCP connection for each simulated client in its own virtual thread
 
 - Sends text‑based commands following the server’s line‑oriented protocol
 
