@@ -6,7 +6,11 @@ This project demonstrates how to process thousands of simultaneous transaction r
 ---
 
 ## Overview
-This project implements a lightweight, high‑performance client–server designed for financial transaction processing. 
+This project implements a lightweight, high‑performance client–server system designed for financial transaction processing. 
+
+The application processes client requests for financial transactions such as deposits and withdrawals. Each request is validated, and the system ensures that the account exists and has sufficient funds when required.
+
+Transactions are handled safely to maintain data consistency. The system returns clear responses with either the updated balance or an error message if the operation fails.
 
 Technologies used:
 
